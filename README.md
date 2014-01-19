@@ -3,7 +3,7 @@ enjigo_door
 
 An rfid/nfc door unlocking system, complete with web-based account manager. Super simple, barely beta quality. Powered by Google App Engine. Written in python for the raspberry pi, and as a Django app for the server-side stuff.
 
-At wouldn't download and use this if I were you.
+You are welcome to use it, but I would wait until June 2014, when we release it for reals.
 
 History & plans
 ===========
