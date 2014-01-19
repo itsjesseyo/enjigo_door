@@ -1,0 +1,56 @@
+.group_container h2{
+	padding:32px 0px 6px 0px;
+	margin-bottom:6px;
+	margin-left: 0px;
+	color: #0088CC;
+}
+
+.group_container ul{
+	list-style-type: none;
+	margin-left: 0px;
+	background: #fff;
+	padding:0px;
+	border-radius: 4px;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+	border-collapse:collapse;
+	background: #F6F7F8;
+}
+
+.group_container ul li label{
+	padding: 10px;
+	text-transform: capitalize;
+	width:200px;
+	border-right:1px solid #EDEDED;
+	vertical-align: middle;
+	height: 30px;
+	text-align: right;
+	display: inline-block;
+	margin-bottom: 0px;
+	background: #fff;
+	border-radius: 4px 0px 0px 4px;
+	line-height: 30px;
+}
+
+.group_container ul li input{
+	
+	margin: 3px;
+	margin-left: 10px;
+
+
+}
+
+.group_container ul li span{
+	font-size: 10px;
+	color: #999;
+	margin-left: 10px;
+	height: 30px;
+	
+}
+
+.default.btn{
+	margin-top: 30px;
+}
+
+#footer{
+	display: none;
+}

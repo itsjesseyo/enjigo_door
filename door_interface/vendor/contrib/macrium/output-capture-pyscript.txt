@@ -1,0 +1,5 @@
+CaptureScriptStdout :  Capturing stdout/err to output-capture-pyscript.txt
+WarnUsers           :  Sent warning email to schoenb@cae.com, bchawla2@cae.com
+WarnUsers           :  Waiting 0.1 minutes so users can heed warning
+WarnUsers           :  Nothing to do in post-task
+CaptureScriptStdout :  Restoring stdout to original

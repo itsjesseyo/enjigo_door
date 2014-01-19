@@ -1,0 +1,56 @@
+application: enjigodoorapp
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+builtins:
+- remote_api: on
+
+inbound_services:
+- warmup
+
+libraries:
+- name: django
+  version: latest
+- name: PIL
+  version: latest
+
+handlers:
+- url: /_ah/queue/deferred
+  script: djangoappengine.deferred.handler.application
+  login: admin
+
+- url: /_ah/stats/.*
+  script: djangoappengine.appstats.application
+
+- url: /media/admin
+  static_dir: django/contrib/admin/static/admin
+  expiration: '0'
+
+- url: /media/shared-bg
+  static_dir: s3direct/static/shared-bg
+  expiration: '0'
+
+- url: /media/s3direct
+  static_dir: s3direct/static/s3direct
+  expiration: '0'
+
+- url: /media/suit
+  static_dir: suit/static/suit
+  expiration: '0'
+
+- url: /media/admin
+  static_dir: suit/static/admin
+  expiration: '0'
+
+- url: /media/cms
+  static_dir: suit/static/cms
+  expiration: '0'
+
+- url: /media/door
+  static_dir: door/static/door
+  expiration: '0'
+
+- url: /.*
+  script: djangoappengine.main.application
