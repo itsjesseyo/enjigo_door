@@ -33,11 +33,12 @@ DBINDEXER_BACKENDS = (
     )
 
 
+#needed for /door/admin to work
 LOGIN_REDIRECT_URL = '/door/admin'
 LOGIN_URL = '/door/login'
 
 
-
+#the routes for talking to the nodejs websocket door controller
 NODE_ROOT_ADDRESS = 'http://127.0.0.1:4000/'
 NODE_STATUS_SUFFIX = 'status'
 NODE_OPEN_SUFFIX = 'open'

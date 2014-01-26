@@ -78,18 +78,23 @@ def show_admin(request):
 	inactive_tags = Tag.objects.filter(active=False).order_by('-created')
 	active_tags = Tag.objects.filter(active=True).order_by('-created')
 
+
+
 	#getting door status
-	random, secure_hash = random_hash()
-	url = node_address(settings.NODE_STATUS_SUFFIX)
-	result = urlfetch.fetch(url)
 	door = {
 		'status':'offline'
 	}
-	if result.status_code == 200:
-		json = simplejson.loads(result.content)
-		door = json['status']
 
-	
+	random, secure_hash = random_hash()
+	url = node_address(settings.NODE_STATUS_SUFFIX)
+	try:
+		result = urlfetch.fetch(url)
+		if result.status_code == 200:
+			json = simplejson.loads(result.content)
+			door = json['status']
+	except:
+		pass
+
 	#get other keys
 	#get door status
 	return render(request, 'door/index.html', {
@@ -119,28 +124,34 @@ def update_tag(*args, **kwargs):
 
 @login_required
 def remote_refresh(request):
-	url = node_address(settings.NODE_REFRESH_SUFFIX)
-	result = urlfetch.fetch(url)
 	door = {
 		'response':False
 	}
-	if result.status_code == 200:
-		json = simplejson.loads(result.content)
-		door['response'] = json['status']
+	url = node_address(settings.NODE_REFRESH_SUFFIX)
+	try:
+		result = urlfetch.fetch(url)
+		if result.status_code == 200:
+			json = simplejson.loads(result.content)
+			door['response'] = json['status']
+	except:
+		pass
 
 	return HttpResponse(simplejson.dumps(door), mimetype='application/json')
 
 @login_required
 def open_says_me(request):
-	url = node_address(settings.NODE_OPEN_SUFFIX)
-	result = urlfetch.fetch(url)
 	door = {
 		'response':False
 	}
-	if result.status_code == 200:
-		json = simplejson.loads(result.content)
-		door['response'] = json['status']
-	data = {'response':True}
+	url = node_address(settings.NODE_OPEN_SUFFIX)
+	try:
+		result = urlfetch.fetch(url)
+		if result.status_code == 200:
+			json = simplejson.loads(result.content)
+			door['response'] = json['status']
+	except:
+		pass
+		
 	return HttpResponse(simplejson.dumps(door), mimetype='application/json')
 
 def random_hash():
