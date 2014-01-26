@@ -38,6 +38,13 @@ LOGIN_REDIRECT_URL = '/door/admin'
 LOGIN_URL = '/door/login'
 
 
+
+NODE_ROOT_ADDRESS = 'http://127.0.0.1:4000/'
+NODE_STATUS_SUFFIX = 'status'
+NODE_OPEN_SUFFIX = 'open'
+NODE_REFRESH_SUFFIX = 'refresh'
+
+
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Enjigo Sentry',
     'MENU_ICONS': {

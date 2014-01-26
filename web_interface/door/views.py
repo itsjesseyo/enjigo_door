@@ -12,6 +12,11 @@ from door.models import Tag, Activity
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
+import random
+import string
+
+from google.appengine.api import urlfetch
+
 
 import hashlib
 
@@ -72,14 +77,80 @@ def show_admin(request):
 	#get most recent inactive keys
 	inactive_tags = Tag.objects.filter(active=False).order_by('-created')
 	active_tags = Tag.objects.filter(active=True).order_by('-created')
+
+	#getting door status
+	random, secure_hash = random_hash()
+	url = node_address(settings.NODE_STATUS_SUFFIX)
+	result = urlfetch.fetch(url)
+	door = {
+		'status':'offline'
+	}
+	if result.status_code == 200:
+		json = simplejson.loads(result.content)
+		door = json['status']
+
+	
 	#get other keys
 	#get door status
 	return render(request, 'door/index.html', {
-        'inactive_tags': inactive_tags,
-        'active_tags': active_tags,
-    })
+		'inactive_tags': inactive_tags,
+		'active_tags': active_tags,
+		'door' : door
+	})
 
+@login_required
+def update_tag(*args, **kwargs):
+	tag = Tag.objects.filter(pk=kwargs['tag_id'])
+	context = {
+		'response':True,
+		'tag_id':'none',
+		'name': kwargs['name']
+	}
+	if len(tag) > 0:
+		tag = tag[0]
+		tag.user = kwargs['name'];
+		tag.active = False;
+		if kwargs['active'] == "true":
+			tag.active = True;
+		tag.save()
+		context['tag_id'] = tag.pk
 
+	return HttpResponse(simplejson.dumps(context), mimetype='application/json')
+
+@login_required
+def remote_refresh(request):
+	url = node_address(settings.NODE_REFRESH_SUFFIX)
+	result = urlfetch.fetch(url)
+	door = {
+		'response':False
+	}
+	if result.status_code == 200:
+		json = simplejson.loads(result.content)
+		door['response'] = json['status']
+
+	return HttpResponse(simplejson.dumps(door), mimetype='application/json')
+
+@login_required
+def open_says_me(request):
+	url = node_address(settings.NODE_OPEN_SUFFIX)
+	result = urlfetch.fetch(url)
+	door = {
+		'response':False
+	}
+	if result.status_code == 200:
+		json = simplejson.loads(result.content)
+		door['response'] = json['status']
+	data = {'response':True}
+	return HttpResponse(simplejson.dumps(door), mimetype='application/json')
+
+def random_hash():
+	random_text = "".join( [random.choice(string.letters) for i in xrange(32)] )
+	secure_hash = hashlib.sha256(random_text + settings.SECRET_KEY).hexdigest()
+	return random_text, secure_hash
+
+def node_address(command):
+	random_text, secure_hash = random_hash()
+	return settings.NODE_ROOT_ADDRESS + command + '/' + random_text + '/' + secure_hash
 	
 ######################## unlock by command ########################
 class valid_user:
@@ -102,6 +173,3 @@ class valid_user:
 			data = {'response':False}
 			return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 
-@valid_user
-def open_says_me(*args, **kwargs):
-	pass

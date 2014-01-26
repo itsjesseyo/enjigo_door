@@ -34,7 +34,7 @@ __all__ = [
 # Any backend scheme that is not in this dictionary is treated as a Python
 # import path to a custom backend.
 BACKENDS = {
-    'memcached': 'memcached',
+    #'memcached': 'memcached',
     'locmem': 'locmem',
     'file': 'filebased',
     'db': 'db',

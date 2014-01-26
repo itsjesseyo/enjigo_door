@@ -28,14 +28,6 @@ handlers:
   static_dir: django/contrib/admin/static/admin
   expiration: '0'
 
-- url: /media/shared-bg
-  static_dir: s3direct/static/shared-bg
-  expiration: '0'
-
-- url: /media/s3direct
-  static_dir: s3direct/static/s3direct
-  expiration: '0'
-
 - url: /media/suit
   static_dir: suit/static/suit
   expiration: '0'

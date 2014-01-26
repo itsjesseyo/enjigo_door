@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from s3direct.fields import S3DirectField
 
 # Create your models here.
 class Tag(models.Model):
