@@ -5,7 +5,6 @@ from djangoappengine.settings_base import *
 DATABASES['default']['HIGH_REPLICATION'] = True
 
 import os
-
 import socket
 
 DEBUG=False
@@ -81,7 +80,6 @@ INSTALLED_APPS = (
     'permission_backend_nonrel',
     'autoload',
     'dbindexer',
-    'bootstrap_toolkit',
     'door',
     'search',
 
@@ -107,16 +105,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
 )
 
-CONFIG_DEFAULT_SETTINGS = {
-    #group/app
-    'testSettings':{
-        #key/display name : value, help text, read_only
-        'setting_one' : ('first value','helpt text', True),
-        'setting_two' : ('second value','more helpt text', False)
-    }
-    
 
-}
 
 
 
