@@ -1,0 +1,18 @@
+{
+  "name": "chat_room",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "latest",
+    "socket.io": "0.9.6",
+    "connect": "1.9.2",
+    "express": "3.4.7",
+    "jade": "*"
+  },
+  "author": "Joe LeBlanc",
+  "license": "BSD"
+}
