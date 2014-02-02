@@ -81,9 +81,7 @@ def show_admin(request):
 
 
 	#getting door status
-	door = {
-		'status':'offline'
-	}
+	door = 'offline'
 
 	random, secure_hash = random_hash()
 	url = node_address(settings.NODE_STATUS_SUFFIX)
@@ -151,7 +149,7 @@ def open_says_me(request):
 			door['response'] = json['status']
 	except:
 		pass
-		
+
 	return HttpResponse(simplejson.dumps(door), mimetype='application/json')
 
 def random_hash():

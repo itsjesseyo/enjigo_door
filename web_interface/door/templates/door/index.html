@@ -52,7 +52,7 @@
 		<nav class="navbar navbar-default" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header col2">
-	<h3 style="padding-left:15px;"><button><span class="glyphicon glyphicon-home"></button>  </span> Enjigo Sentry</h3>
+	<h3 style="padding-left:15px;"><button  id="reload_button" ><span class="glyphicon glyphicon-home"></button>  </span> Enjigo Sentry</h3>
   </div>
 
 
@@ -67,7 +67,7 @@
 			<div class="row" style="padding-bottom:30px;">
 
 				{% if door == 'active' %}
-					<button  type="button" class="btn btn-success btn-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-lock"> </span> door status : {{door}}</button>
+					<button type="button" class="btn btn-success btn-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-lock"> </span> door status : {{door}}</button>
 				{% else %}
 					<button  type="button" class="btn btn-danger btn-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled="disabled"><span class="glyphicon glyphicon-lock"> </span> door status : {{door}}</button>
 				{% endif %}
@@ -236,6 +236,10 @@
 
 		window.addEventListener("load",function(){hideAddressBar();});
 		window.addEventListener("orientationchange",function(){hideAddressBar();});
+
+		$('#reload_button').click(function() {
+    		location.reload(true);
+		});
 
 
 	</script>

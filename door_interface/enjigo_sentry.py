@@ -1,5 +1,5 @@
 import datetime, time
-from helpers import Config, Sensor, Cloud, Door, Speaker, Led
+from helpers import Config, Sensor, Cloud, Door, Speaker, Led, Node
 
 ############## BEGIN LED #####################
 print 'reading settings'
@@ -77,6 +77,16 @@ def door_closed(door):
 	led.show_status_light()
 	sensor.start()
 
+#node additions
+def request_door_open(node):
+	led.show_positive_light()
+	speaker.play_positive_sound()
+	door.open_door()
+
+def request_refresh_users(node):
+	valid_response, valid_tag, new_tags = tags_from_cloud('2fe4fd2qf')
+		if valid_response:
+			update_tag_settings(new_tags)
 
 
 ############## BEGIN CONFIG #####################
@@ -94,6 +104,12 @@ print 'initing_door'
 door = Door('back_door', settings)
 door.DOOR_OPENED += door_opened
 door.DOOR_CLOSED += door_closed
+############## BEGIN NODE ###################
+print 'setting up node'
+node = Node(settings)
+node.OPEN_DOOR_REQUEST += request_door_open
+node.REFRESH_USERS_REQUEST += request_refresh_users
+node.connect()
 ############## BEGIN SENSOR ###################
 print 'setting up sensor'
 sensor = Sensor("outside_sensor")

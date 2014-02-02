@@ -5,3 +5,4 @@ from .event import Event
 from .door import Door
 from .speaker import Speaker
 from .led import Led
+from .node import Node
