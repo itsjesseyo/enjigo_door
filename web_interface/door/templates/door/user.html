@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="/media/door/docs-assets/ico/favicon.png">
+
+		<title>Enjigo Sentry</title>
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+		<!-- Custom styles for this template -->
+		<link href="signin.css" rel="stylesheet">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+
+
+		<style type="text/css">
+			input[type='checkbox'] {
+				-webkit-appearance:none;
+				width:30px;
+				height:30px;
+				background:white;
+				border-radius:5px;
+				border:2px solid #555;
+			}
+			input[type='checkbox']:checked {
+				background: #498cc8;
+			}
+		</style>
+
+
+	</head>
+
+	<body>
+
+
+
+
+		<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header col2">
+	<h3 style="padding-left:15px;"><button  id="reload_button" ><span class="glyphicon glyphicon-home"></button>  </span> Enjigo Sentry</h3>
+  </div>
+
+
+
+</nav>
+
+		<div class="container">
+
+		<div class="container">
+
+
+			<div class="row" style="padding-bottom:30px;">
+
+				{% if door == 'active' %}
+					<button type="button" class="btn btn-success btn-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-lock"> </span> door status : {{door}}</button>
+				{% else %}
+					<button  type="button" class="btn btn-danger btn-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled="disabled"><span class="glyphicon glyphicon-lock"> </span> door status : {{door}}</button>
+				{% endif %}
+
+			</div>
+
+
+			
+
+</div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Door Controls</h4>
+	  </div>
+	  <div class="modal-body" style='min-height:280px'>
+		<!-- your content here -->
+
+		<button id="refresh_button" type="button" class="btn btn-primary btn-lg col-xs-12" onclick="remote_door_refresh()">refresh user list</button>
+		
+		<div style="height:120px;"></div>
+
+		<button id="open_button" type="button" class="btn btn-primary btn-lg col-xs-12" onclick="remote_door_open()">open door</button>
+
+
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+
+		 function update_tag(tag_id){
+
+			var name_input = $('#tag_name_'+tag_id).val();
+			var active_input = false;
+
+			if ($('#tag_active_'+tag_id+":checked").val() != undefined) {
+				active_input = $('#tag_active_'+tag_id+":checked").val();
+			};
+
+			var url = "/door/admin/tag/update/" + String(tag_id) + "/" + String(name_input) + "/" + String(active_input);
+
+			$.getJSON( url, function( data ) {
+				if(data["response"] == true){
+					
+					$('#tag_button_'+data['tag_id']).html('<span class="glyphicon glyphicon-thumbs-up"> </span>');
+					$('#tag_button_'+data['tag_id']).attr('class', 'btn btn-success');
+				}else{
+					$('#tag_button_'+data['tag_id']).attr('class', 'btn btn-danger');
+				}
+			});
+
+
+		 }
+
+		 function remote_door_open(){
+			var url = '/door/admin/remote/open';
+			$.getJSON( url, function( data ) {
+				if(data["response"] == true){
+					$('#open_button').html('<span class="glyphicon glyphicon-thumbs-up"> </span>');
+					$('#open_button').attr('class', 'btn btn-success btn-lg col-xs-12');
+				}else{
+					$('#open_button').attr('class', 'btn btn-danger btn-lg col-xs-12');
+				}
+			});
+		 }
+
+		 function remote_door_refresh(){
+			var url = '/door/admin/remote/refresh';
+			$.getJSON( url, function( data ) {
+				if(data["response"] == true){
+					$('#refresh_button').html('<span class="glyphicon glyphicon-thumbs-up"> </span>');
+					$('#refresh_button').attr('class', 'btn btn-success btn-lg col-xs-12');
+				}else{
+					$('#refresh_button').attr('class', 'btn btn-danger btn-lg col-xs-12');
+				}
+			});
+		 }
+
+
+		function hideAddressBar(){
+			if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio)
+				document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
+				setTimeout(window.scrollTo(1,1),0);
+			}
+
+		window.addEventListener("load",function(){hideAddressBar();});
+		window.addEventListener("orientationchange",function(){hideAddressBar();});
+
+		$('#reload_button').click(function() {
+    		location.reload(true);
+		});
+
+
+	</script>
+
+
+
+	</body>
+</html>

@@ -85,8 +85,8 @@ def request_door_open(node):
 
 def request_refresh_users(node):
 	valid_response, valid_tag, new_tags = tags_from_cloud('2fe4fd2qf')
-		if valid_response:
-			update_tag_settings(new_tags)
+	if valid_response:
+		update_tag_settings(new_tags)
 
 
 ############## BEGIN CONFIG #####################

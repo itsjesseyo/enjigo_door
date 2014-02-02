@@ -102,6 +102,27 @@ def show_admin(request):
 	})
 
 @login_required
+def show_user(request):
+	#getting door status
+	door = 'offline'
+
+	random, secure_hash = random_hash()
+	url = node_address(settings.NODE_STATUS_SUFFIX)
+	try:
+		result = urlfetch.fetch(url)
+		if result.status_code == 200:
+			json = simplejson.loads(result.content)
+			door = json['status']
+	except:
+		pass
+
+	#get other keys
+	#get door status
+	return render(request, 'door/user.html', {
+		'door' : door
+	})
+
+@login_required
 def update_tag(*args, **kwargs):
 	tag = Tag.objects.filter(pk=kwargs['tag_id'])
 	context = {
