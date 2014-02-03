@@ -75,7 +75,7 @@ def door_opened(door):
 	
 def door_closed(door):
 	led.show_status_light()
-	sensor.start()
+	#sensor.start()
 
 #node additions
 def request_door_open(node):

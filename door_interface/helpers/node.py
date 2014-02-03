@@ -2,7 +2,7 @@
 from socketIO_client import SocketIO, BaseNamespace
 from event import Event
 
-import hashlib, threading
+import hashlib, threading, random, string
 
 
 
@@ -65,7 +65,7 @@ class Node(threading.Thread):
 		else:
 			print 'node has mismatch'
 
-	def random_hash():
+	def random_hash(self):
 		random_text = "".join( [random.choice(string.letters) for i in xrange(32)] )
 		secure_hash = hashlib.sha256(random_text + self.secret_key).hexdigest()
 		return random_text, secure_hash
