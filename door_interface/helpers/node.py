@@ -24,6 +24,18 @@ class Node(threading.Thread):
 		self.OPEN_DOOR_REQUEST = Event()
 		self.REFRESH_USERS_REQUEST = Event()
 
+	def run(self):
+		print self.address + ":" + str(self.port)
+		self.socketIO = SocketIO(self.address, self.port)
+		self.socketIO.on('connect', self.socket_connected)
+		self.socketIO.on('disconnect', self.socket_disconnected)
+		self.socketIO.on('close', self.socket_disconnected)
+		self.socketIO.on_disconnect = self.socket_disconnected
+		self.socketIO.on('begin_validation', self.on_begin_validation)
+		self.socketIO.on('open_door_request', self.on_open_door_request)
+		self.socketIO.on('refresh_users_request', self.on_refresh_users_request)
+		self.socketIO.wait()
+
 	def socket_connected(self, *args):
 		print "i ma conencted"
 
@@ -70,17 +82,17 @@ class Node(threading.Thread):
 		secure_hash = hashlib.sha256(random_text + self.secret_key).hexdigest()
 		return random_text, secure_hash
 
-	def connect(self):
-		print self.address + ":" + str(self.port)
-		self.socketIO = SocketIO(self.address, self.port)
-		self.socketIO.on('connect', self.socket_connected)
-		self.socketIO.on('disconnect', self.socket_disconnected)
-		self.socketIO.on('close', self.socket_disconnected)
-		self.socketIO.on_disconnect = self.socket_disconnected
-		self.socketIO.on('begin_validation', self.on_begin_validation)
-		self.socketIO.on('open_door_request', self.on_open_door_request)
-		self.socketIO.on('refresh_users_request', self.on_refresh_users_request)
-		self.socketIO.wait()
+	# def connect(self):
+	# 	print self.address + ":" + str(self.port)
+	# 	self.socketIO = SocketIO(self.address, self.port)
+	# 	self.socketIO.on('connect', self.socket_connected)
+	# 	self.socketIO.on('disconnect', self.socket_disconnected)
+	# 	self.socketIO.on('close', self.socket_disconnected)
+	# 	self.socketIO.on_disconnect = self.socket_disconnected
+	# 	self.socketIO.on('begin_validation', self.on_begin_validation)
+	# 	self.socketIO.on('open_door_request', self.on_open_door_request)
+	# 	self.socketIO.on('refresh_users_request', self.on_refresh_users_request)
+	# 	self.socketIO.wait()
 
 
 

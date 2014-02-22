@@ -109,7 +109,7 @@ print 'setting up node'
 node = Node(settings)
 node.OPEN_DOOR_REQUEST += request_door_open
 node.REFRESH_USERS_REQUEST += request_refresh_users
-node.connect()
+node.start()
 ############## BEGIN SENSOR ###################
 print 'setting up sensor'
 sensor = Sensor("outside_sensor")
