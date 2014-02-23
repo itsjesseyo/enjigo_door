@@ -1,4 +1,4 @@
-import sys, serial, time, signal
+import sys, serial, time, signal, threading
 from MFRC522 import MFRC522
 from event import Event
 
