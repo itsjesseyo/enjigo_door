@@ -12,15 +12,16 @@ class Led():
 		
 
 	def show_status_light(self):
-		self.led.play_script(Scripts.BLUE_FLASH)
+		self.led.fade_to_hex("0000ff")
 
 	def show_thinking_light(self):
-		self.led.play_script(Scripts.WHITE_FLASH)
+		#self.led.play_script(Scripts.WHITE_FLASH)
+		self.led.fade_to_hex("ffffff")
 
 	def show_positive_light(self):
-		self.led.stop_script()
+		#self.led.stop_script()
 		self.led.fade_to_hex("00ff00")
 
 	def show_negative_light(self):
-		self.led.stop_script()
+		#self.led.stop_script()
 		self.led.fade_to_hex("ff0000")
