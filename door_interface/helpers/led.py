@@ -13,8 +13,8 @@ class Led():
 		self.led.set_fade_speed(32)
 		self.delay(1)
 	
-	def delay(self, time):
-		time.sleep(time)
+	def delay(self, seconds):
+		time.sleep(seconds)
 
 	def show_status_light(self):
 		self.led.fade_to_hex("0000ff")
