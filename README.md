@@ -33,3 +33,76 @@ love it or iterate the hardware. make php version for the lame.
 
 ####phase 7) approximately June
 release to public for free. Sell circuit board kits to those who don't want to get their own printed. Possibily sell pre fabricated ones, if I haven't found somehting better to do - and I likely will.
+
+
+####install notes to self
+enjigo door raspberry pi base setup
+
+install occidetalis
+expand, enable ssh
+enable wifi : sudo nano /etc/network/interfaces
+copy github keys from docs via cyberduck and ssh
+install SPI extension
+
+install SPI-py:
+git clone https://github.com/lthiery/SPI-Py.git
+ cd SPI-Py
+ sudo python setup.py install
+
+
+
+reference :
+https://github.com/mxgxw/MFRC522-python
+https://github.com/lthiery/SPI-Py
+https://learn.sparkfun.com/tutorials/programming-the-pcduino/spi-communications
+
+get pip working:
+sudo apt-get update (needed to pulling misc stuff)
+
+
+http://www.raspberrypi.org/phpBB3/viewtopic.php?t=33125&p=284421
+
+reference : http://learn.adafruit.com/send-raspberry-pi-data-to-cosm/necessary-packages
+
+
+install requests:
+sudo rebasheasy_install requests
+sudo apt-get install python-pip
+install blinkm linrary : 
+sudo pip install pyblinkm
+
+install socket io client for node
+sudo pip install -U socketIO-client
+
+
+reference : https://github.com/tsileo/pyblinkm
+
+copy sounds over to /home/pi/sounds/
+
+
+get it working on startup
+resize text to fit little screen
+have it connect to cell dongle if needed
+
+make autlogin :
+http://raspisimon.no-ip.org/rpi_autologin.php
+
+disable serial port logging
+http://dav3.net/dribble/1180
+
+
+todo:
+add swipe sound ; link coin acquire or something
+screen saver
+install app into /etc
+
+
+tips:
+sudo apt-get update : updates system
+sudo raspi-config : gets you to setup screen
+
+
+sudo i2cdetect -y 1: find connected i2c devices:
+
+
+sudo shutdown -h now
